@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import MKCCLogo from '../../components/Logo/MKCCLogo';
 
 export default function AdminLogin() {
-  const [creds, setCreds] = useState({ username: '', password: '' });
+  const [creds, setCreds] = useState({ username: 'admin', password: 'mkcc@patuli' });
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
