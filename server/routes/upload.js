@@ -16,7 +16,7 @@ const imagekit = new ImageKit({
  * upload directly to ImageKit without exposing the private key.
  * Protected — only logged-in admins can get this token.
  */
-router.get('/auth', authMiddleware, (req, res) => {
+router.get('/auth', (req, res) => {
   try {
     const result = imagekit.getAuthenticationParameters();
     // result = { token, expire, signature }
