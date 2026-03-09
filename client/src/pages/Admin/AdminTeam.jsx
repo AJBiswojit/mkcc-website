@@ -81,6 +81,12 @@ export function AdminTeam() {
                   className="w-full bg-mkcc-dark border border-mkcc-border rounded px-3 py-2.5 text-white font-body text-sm focus:border-mkcc-red focus:outline-none" />
               </div>
               <div>
+                <label className="block font-heading text-gray-300 text-xs mb-1 uppercase tracking-wider">Bio</label>
+                <input type="text" required value={form.bio}
+                  onChange={e => setForm(f => ({ ...f, bio: e.target.value }))}
+                  className="w-full bg-mkcc-dark border border-mkcc-border rounded px-3 py-2.5 text-white font-body text-sm focus:border-mkcc-red focus:outline-none" />
+              </div>
+              <div>
                 <label className="block font-heading text-gray-300 text-xs mb-1 uppercase tracking-wider">Role</label>
                 <select value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
                   className="w-full bg-mkcc-dark border border-mkcc-border rounded px-3 py-2.5 text-white font-body text-sm focus:border-mkcc-red focus:outline-none">
@@ -112,6 +118,15 @@ export function AdminTeam() {
                   <option value="">— Select —</option>
                   <option>Right-handed</option>
                   <option>Left-handed</option>
+                </select>
+              </div>
+              <div>
+                <label className="block font-heading text-gray-300 text-xs mb-1 uppercase tracking-wider">Bowling Style</label>
+                <select value={form.bowlingStyle} onChange={e => setForm(f => ({ ...f, bowlingStyle: e.target.value }))}
+                  className="w-full bg-mkcc-dark border border-mkcc-border rounded px-3 py-2.5 text-white font-body text-sm focus:border-mkcc-red focus:outline-none">
+                  <option value="">— Select —</option>
+                  <option>Right-arm</option>
+                  <option>Left-arm</option>
                 </select>
               </div>
             </div>

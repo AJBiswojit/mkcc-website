@@ -7,9 +7,9 @@ import ImageUpload from '../../components/ImageUpload/ImageUpload';
 import MKCCLogo from '../../components/Logo/MKCCLogo';
 
 // ── UPI details — change these to your actual UPI ID ─────────────────────────
-const UPI_ID = 'mkcc.patuli@upi';      // ← replace with your UPI ID
+const UPI_ID = '6200271548@ybl';      // ← replace with your UPI ID
 const UPI_NAME = 'Maa Kali Cricket Club';
-const UPI_QR = null; // Set to your ImageKit QR URL after uploading, e.g.:
+const UPI_QR = 'https://ik.imagekit.io/ugib3fcb8/mkcc/QR%20CODE%20(2).jpeg'; // Set to your ImageKit QR URL after uploading, e.g.:
 // 'https://ik.imagekit.io/ugib3fcb8/mkcc/qr%20code.jpeg'
 
 // Preset donation amounts

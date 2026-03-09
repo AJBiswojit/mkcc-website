@@ -53,11 +53,17 @@ export default function TeamCard({ member, delay = 0 }) {
         <div className={`inline-block mt-1.5 px-3 py-0.5 rounded-full text-xs font-heading font-semibold uppercase tracking-widest ${roleStyle.bg} ${roleStyle.text} border ${roleStyle.border}`}>
           {member.role}
         </div>
+        {member.bio && (
+          <p className="text-mkcc-muted text-xs mt-2 font-body"> {member.bio}</p>
+        )}
         {member.village && (
           <p className="text-mkcc-muted text-xs mt-2 font-body">📍 {member.village}</p>
         )}
         {member.battingStyle && (
           <p className="text-mkcc-muted text-xs mt-1 font-body">🏏 {member.battingStyle}</p>
+        )}
+        {member.bowlingStyle && (
+          <p className="text-mkcc-muted text-xs mt-1 font-body">⚾ {member.bowlingStyle}</p>
         )}
       </div>
     </motion.div>
