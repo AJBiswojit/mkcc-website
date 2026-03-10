@@ -7,9 +7,9 @@ import ImageUpload from '../../components/ImageUpload/ImageUpload';
 import MKCCLogo from '../../components/Logo/MKCCLogo';
 
 // ── UPI details — change these to your actual UPI ID ─────────────────────────
-const UPI_ID = '6200271548@ybl';      // ← replace with your UPI ID
+const UPI_ID = '8984408388-2@ybl';      // ← replace with your UPI ID
 const UPI_NAME = 'Maa Kali Cricket Club';
-const UPI_QR = 'https://ik.imagekit.io/ugib3fcb8/mkcc/QR%20CODE%20(2).jpeg'; // Set to your ImageKit QR URL after uploading, e.g.:
+const UPI_QR = 'https://ik.imagekit.io/ugib3fcb8/mkcc/Badal%20Behera%20qr.png'; // Set to your ImageKit QR URL after uploading, e.g.:
 // 'https://ik.imagekit.io/ugib3fcb8/mkcc/qr%20code.jpeg'
 
 // Preset donation amounts
@@ -191,6 +191,7 @@ export default function Donate() {
                   ))}
                 </div>
                 <p className="text-mkcc-muted text-xs font-body">Pay any amount using any UPI app</p>
+                <p className="text-mkcc-gold text-xs font-body">"All donations go directly towards MKCC cricket tournaments, Ganesh Puja celebrations, and youth development in Patuli, Olaver."</p>
               </div>
 
               {/* Preset amounts + proceed */}
