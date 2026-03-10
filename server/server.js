@@ -43,6 +43,7 @@ const joinRouter          = require('./routes/join');
 const authRouter          = require('./routes/auth');
 const uploadRouter        = require('./routes/upload');
 const donationsRouter     = require('./routes/donations');
+const visitorRouter       = require('./routes/visitor');
 
 app.use('/api/events',        eventsRouter);
 app.use('/api/members',       membersRouter);
@@ -52,6 +53,7 @@ app.use('/api/join',          joinRouter);
 app.use('/api/auth',          authRouter);
 app.use('/api/upload',        uploadRouter);
 app.use('/api/donations',     donationsRouter);
+app.use('/api/visitor',       visitorRouter);
 
 // ─── Health Check ────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {

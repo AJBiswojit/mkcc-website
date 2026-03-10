@@ -1,7 +1,20 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import MKCCLogo from '../Logo/MKCCLogo';
+import api from '../../utils/api';
 
 export default function Footer() {
+  const [visitors, setVisitors] = useState(null);
+
+  useEffect(() => {
+    // Count this visit
+    api.post('/visitor/hit')
+      .then(r => setVisitors(r.data.count))
+      .catch(() => {
+        // Fallback — just get current count
+        api.get('/visitor/count').then(r => setVisitors(r.data.count)).catch(() => {});
+      });
+  }, []);
   return (
     <footer className="bg-mkcc-black border-t border-mkcc-border mt-0">
       {/* Divider */}
@@ -91,9 +104,25 @@ export default function Footer() {
       </div>
 
       <div className="divider-gold opacity-30" />
-      <div className="text-center py-4 text-mkcc-muted text-xs font-body tracking-wide">
-        © {new Date().getFullYear()} MKCC — Maa Kali Cricket Club, Patuli, Olaver, Odisha. 
-        <span className="text-mkcc-red ml-1">🙏 Jai Maa Kali!</span>
+      <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+        <p className="text-mkcc-muted text-xs font-body tracking-wide text-center">
+          © {new Date().getFullYear()} MKCC — Maa Kali Cricket Club, Patuli, Olaver, Odisha.
+          <span className="text-mkcc-red ml-1">🏏 Jai Maa Kali!</span>
+        </p>
+        {visitors !== null && (
+          <div className="flex items-center gap-2 bg-mkcc-card border border-mkcc-border rounded-full px-4 py-1.5">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+            </span>
+            <span className="font-heading text-xs text-mkcc-muted uppercase tracking-wider">
+              Visitors
+            </span>
+            <span className="font-display text-mkcc-gold text-sm">
+              {visitors.toLocaleString('en-IN')}
+            </span>
+          </div>
+        )}
       </div>
     </footer>
   );

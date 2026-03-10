@@ -58,3 +58,13 @@ const JoinRequest  = mongoose.model('JoinRequest', joinRequestSchema);
 const User         = mongoose.model('User', userSchema);
 
 module.exports = { Gallery, Announcement, JoinRequest, User };
+
+// ─── Visitor Counter ─────────────────────────────────────────────────────────
+const visitorSchema = new mongoose.Schema({
+  key:   { type: String, default: 'total', unique: true },
+  count: { type: Number, default: 0 },
+}, { timestamps: true });
+const Visitor = mongoose.model('Visitor', visitorSchema);
+
+module.exports = { Gallery, Announcement, JoinRequest, User, Visitor };
+
