@@ -233,10 +233,11 @@ export default function Donate() {
                 <div className="bg-mkcc-dark border border-mkcc-border rounded-xl p-5 space-y-3">
                   <h4 className="font-heading font-bold text-mkcc-gold text-base uppercase tracking-wider">How to Donate</h4>
                   {[
-                    { n: '1', text: 'Scan the QR code or use UPI ID above' },
-                    { n: '2', text: `Enter amount (₹${form.amount || '...'}) and complete payment` },
+                    { n: '1', text: 'Take a Screenshot of the QR code or use UPI ID above' },
+                    { n: '2', text: 'Open any UPI app and go to the scanner, upload that screenshot and complete the payment' },
                     { n: '3', text: 'Take a screenshot of the payment confirmation' },
-                    { n: '4', text: 'Click the button below and submit your details' },
+                    { n: '4', text: 'Come back to the website and enter the amount you have paid⬆' },
+                    { n: '5', text: 'Click the button below and submit your details' },
                   ].map(({ n, text }) => (
                     <div key={n} className="flex items-start gap-3">
                       <div className="w-6 h-6 bg-mkcc-red rounded-full flex items-center justify-center flex-shrink-0 font-display text-white text-sm">{n}</div>

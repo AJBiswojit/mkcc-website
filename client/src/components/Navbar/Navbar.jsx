@@ -131,19 +131,19 @@ export default function Navbar() {
                   </Link>
                 </motion.li>
               ))}
-              <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-4">
-                <Link to="/donate" className="btn-gold text-base">
+              <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-6 w-full px-6">
+                <Link to="/donate" className="btn-gold text-base w-full text-center block py-4">
                   💛 Donate to MKCC
                 </Link>
               </motion.li>
-              <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 }}>
-                <Link to="/contact#join" className="btn-primary text-base">
+              <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.55 }} className="w-full px-6">
+                <Link to="/contact#join" className="btn-primary text-base w-full text-center block py-4">
                   Join MKCC 🏏
                 </Link>
               </motion.li>
-              <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}>
+              <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }} className="w-full px-6 pb-8">
                 <Link to="/admin"
-                  className="flex items-center justify-center gap-2 text-mkcc-muted hover:text-mkcc-gold font-heading text-sm uppercase tracking-widest py-2 transition-colors">
+                  className="flex items-center justify-center gap-2 text-mkcc-muted hover:text-mkcc-gold font-heading text-sm uppercase tracking-widest py-3 border border-mkcc-border rounded-lg transition-colors w-full">
                   ⚙️ Admin Panel
                 </Link>
               </motion.li>
