@@ -12,9 +12,9 @@ const FadeIn = ({ children, delay = 0, className = '' }) => (
 
 const CONTACT_INFO = [
   { icon: '📍', label: 'Address', value: 'Patuli, Olaver, Odisha, India' },
-  { icon: '📞', label: 'Phone', value: '+91 98765 43210', href: 'tel:+919876543210' },
+  { icon: '📞', label: 'Phone', value: '+91 ***** *****', href: 'tel:+************' },
   { icon: '✉️', label: 'Email', value: 'mkcc.patuli@gmail.com', href: 'mailto:mkcc.patuli@gmail.com' },
-  { icon: '💬', label: 'WhatsApp', value: 'Join Our Group', href: 'https://wa.me/919876543210' },
+  { icon: '💬', label: 'Instagram', value: 'Follow Our Instagram', href: 'https://www.instagram.com/mkcc.patuli?igsh=MXhhNjU0eWRrOWNhYw==' },
 ];
 
 export default function Contact() {
@@ -86,7 +86,7 @@ export default function Contact() {
             <h3 className="font-heading font-bold text-white text-xl mb-4 uppercase tracking-wider">Location</h3>
             <div className="rounded-xl overflow-hidden card-glow h-64">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14959.447386432!2d85.33!3d20.35!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1908d900000000%3A0x0!2sOlaver%2C+Odisha!5e0!3m2!1sen!2sin!4v1"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3740.5!2d86.6606726!3d20.7325231!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1b9500789edead%3A0xbe268b7c0ebf0a07!2sPMM6%2B26%20M.K.C.C%20patuli!5e0!3m2!1sen!2sin!4v1"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -100,11 +100,11 @@ export default function Contact() {
 
           {/* WhatsApp */}
           <FadeIn delay={0.3}>
-            <a href="https://wa.me/919876543210?text=Hi%20MKCC!" target="_blank" rel="noopener noreferrer"
+            <a href="https://wa.me/9777714998?text=Hi%20MKCC!%20NEED%20UPDATE" target="_blank" rel="noopener noreferrer"
               className="flex items-center gap-4 bg-green-900/30 border border-green-700/50 rounded-xl p-5 hover:bg-green-900/50 transition-colors group">
               <span className="text-4xl">💬</span>
               <div>
-                <p className="font-heading font-bold text-white text-lg">Join MKCC WhatsApp Group</p>
+                <p className="font-heading font-bold text-white text-lg">Contact MKCC WhatsApp Group</p>
                 <p className="text-green-400 text-sm font-body">Get updates, match schedules & announcements</p>
               </div>
               <span className="ml-auto text-green-400 group-hover:translate-x-1 transition-transform">→</span>
@@ -176,7 +176,7 @@ export default function Contact() {
 
               <button type="submit" disabled={submitting}
                 className="btn-primary w-full text-center text-base">
-                {submitting ? 'Sending...' : tab === 'join' ? '🏏 Submit Membership Request' : '📬 Send Message'}
+                {submitting ? 'Sending...' : tab === 'join' ? '🏏 Submit Your Request' : '📬 Send Message'}
               </button>
             </form>
           </div>

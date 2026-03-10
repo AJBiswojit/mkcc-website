@@ -440,13 +440,6 @@ export default function Home() {
           </motion.form>
 
           {/* WhatsApp */}
-          <div className="text-center mt-6">
-            <a href="https://wa.me/9777714998?text=Hi%20MKCC!%20I%20want%20to%20join." target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-green-700 hover:bg-green-600 text-white font-heading font-semibold px-6 py-3 rounded-lg transition-colors">
-              <span className="text-2xl">💬</span>
-              Join MKCC WhatsApp Group
-            </a>
-          </div>
         </div>
       </Section>
     </div>
