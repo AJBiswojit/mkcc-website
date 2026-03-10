@@ -23,16 +23,16 @@ const SectionHead = ({ label, title, subtitle }) => (
 // ─── Announcement Ticker ──────────────────────────────────────────────────────
 function AnnouncementTicker({ items }) {
   if (!items.length) return null;
-  const text = items.map(a => `📢 ${a.title}`).join('    ★    ');
+  const text = items.map(a => `📢 ${a.title}`).join('     ★     ');
   return (
     <div className="bg-mkcc-red/10 border-y border-mkcc-red/30 py-2.5 overflow-hidden">
       <div className="flex items-center gap-4">
-        <span className="flex-shrink-0 bg-mkcc-red px-4 py-1 font-heading font-bold text-white text-sm uppercase tracking-widest">
-          Breaking
+        <span className="flex-shrink-0 bg-mkcc-red px-4 py-1 font-heading font-bold text-white text-sm uppercase tracking-widest z-10">
+          Live
         </span>
         <div className="ticker-wrapper flex-1">
           <div className="ticker-content font-heading text-mkcc-gold text-sm font-medium tracking-wide">
-            {text} &nbsp;&nbsp;&nbsp; {text}
+            {text}
           </div>
         </div>
       </div>
@@ -438,8 +438,6 @@ export default function Home() {
               {submitting ? 'Submitting...' : '🏏 Submit Request'}
             </button>
           </motion.form>
-
-          {/* WhatsApp */}
         </div>
       </Section>
     </div>

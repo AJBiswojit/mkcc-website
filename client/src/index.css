@@ -127,12 +127,20 @@ body {
 .ticker-wrapper {
   overflow: hidden;
   white-space: nowrap;
+  width: 100%;
 }
 .ticker-content {
   display: inline-block;
-  animation: marquee 30s linear infinite;
+  animation: marquee 20s linear infinite;
+}
+.ticker-content:hover {
+  animation-play-state: paused;
 }
 
+@keyframes marquee {
+  0%   { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
 /* ─── Image Lightbox ────────────────────────────────────────────────────────── */
 .lightbox-overlay {
   position: fixed;
