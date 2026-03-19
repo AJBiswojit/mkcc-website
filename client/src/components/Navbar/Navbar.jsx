@@ -4,12 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import MKCCLogo from '../Logo/MKCCLogo';
 
 const NAV_LINKS = [
-  { label: 'Home',    path: '/' },
-  { label: 'About',   path: '/about' },
-  { label: 'Team',    path: '/team' },
-  { label: 'Events',  path: '/events' },
-  { label: 'Gallery', path: '/gallery' },
-  { label: 'Contact', path: '/contact' },
+  { label: 'Home',        path: '/' },
+  { label: 'About',       path: '/about' },
+  { label: 'Team',        path: '/team' },
+  { label: 'Events',      path: '/events' },
+  { label: 'Gallery',     path: '/gallery' },
+  { label: '🪔 Ganesh Puja', path: '/ganesh-puja' },
+  { label: 'Contact',     path: '/contact' },
 ];
 
 export default function Navbar() {

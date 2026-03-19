@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
 import MKCCLogo from '../../components/Logo/MKCCLogo';
 import EventCard from '../../components/EventCard/EventCard';
@@ -48,26 +48,114 @@ const STATS = [
   { value: '150+', label: 'Community Members' },
 ];
 
+// ─── Ganesh Puja Countdown ────────────────────────────────────────────────────
+const PUJA_DATE = new Date('2026-09-14T06:00:00');
+
+function GaneshPujaCountdown() {
+  const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const calc = () => {
+      const diff = PUJA_DATE - new Date();
+      if (diff <= 0) return;
+      setTime({
+        days: Math.floor(diff / 86400000),
+        hours: Math.floor((diff % 86400000) / 3600000),
+        minutes: Math.floor((diff % 3600000) / 60000),
+        seconds: Math.floor((diff % 60000) / 1000),
+      });
+    };
+    calc();
+    const t = setInterval(calc, 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  if (new Date() >= PUJA_DATE) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="relative overflow-hidden py-10"
+      style={{ background: 'linear-gradient(135deg, #1a0e00 0%, #0A0A0A 40%, #1a0e00 100%)' }}
+    >
+      <div className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at center, rgba(212,175,55,0.12) 0%, transparent 70%)' }} />
+      <div className="max-w-4xl mx-auto px-6 relative">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Left */}
+          <div className="text-center md:text-left">
+            <div className="flex items-center gap-2 justify-center md:justify-start mb-1">
+              <span className="text-2xl">🪔</span>
+              <span className="font-heading text-mkcc-gold text-xs uppercase tracking-[0.3em]">Coming Soon</span>
+            </div>
+            <h3 className="font-display text-3xl md:text-4xl text-white uppercase">
+              Ganesh Puja <span className="text-gradient-gold">2026</span>
+            </h3>
+            <p className="text-mkcc-muted font-body text-sm mt-1">
+              📍 Patuli, Olaver · Sep 14–20, 2026
+            </p>
+          </div>
+
+          {/* Countdown boxes */}
+          <div className="flex items-center gap-3 md:gap-4">
+            {[
+              { v: time.days, l: 'Days' },
+              { v: time.hours, l: 'Hrs' },
+              { v: time.minutes, l: 'Min' },
+              { v: time.seconds, l: 'Sec' },
+            ].map(({ v, l }, i) => (
+              <div key={l} className="flex items-center gap-3 md:gap-4">
+                <div className="text-center">
+                  <div className="bg-mkcc-card border border-mkcc-gold/30 rounded-xl w-16 h-16 md:w-20 md:h-20 flex items-center justify-center">
+                    <AnimatePresence mode="wait">
+                      <motion.span key={v}
+                        initial={{ y: -10, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: 10, opacity: 0 }}
+                        transition={{ duration: 0.15 }}
+                        className="font-display text-2xl md:text-3xl text-mkcc-gold"
+                      >
+                        {String(v).padStart(2, '0')}
+                      </motion.span>
+                    </AnimatePresence>
+                  </div>
+                  <p className="font-heading text-mkcc-muted text-xs mt-1 uppercase">{l}</p>
+                </div>
+                {i < 3 && <span className="font-display text-mkcc-gold text-2xl mb-4">:</span>}
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <Link to="/ganesh-puja" className="btn-gold text-sm py-2.5 px-6 flex-shrink-0">
+            🪔 View Details
+          </Link>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 export default function Home() {
-  const [events, setEvents]           = useState([]);
-  const [announcements, setAnn]       = useState([]);
-  const [gallery, setGallery]         = useState([]);
-  const [donorStats, setDonorStats]   = useState({ totalAmount: 0, totalDonors: 0 });
+  const [events, setEvents] = useState([]);
+  const [announcements, setAnn] = useState([]);
+  const [gallery, setGallery] = useState([]);
+  const [donorStats, setDonorStats] = useState({ totalAmount: 0, totalDonors: 0 });
   const [recentDonors, setRecentDonors] = useState([]);
   const [form, setForm] = useState({ name: '', phone: '', village: '', role: 'Player' });
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    api.get('/events?status=upcoming').then(r => setEvents(r.data.data)).catch(() => {});
-    api.get('/announcements').then(r => setAnn(r.data.data)).catch(() => {});
-    api.get('/gallery').then(r => setGallery(r.data.data.slice(0, 6))).catch(() => {});
-    api.get('/donations/stats').then(r => setDonorStats(r.data.data)).catch(() => {});
-    api.get('/donations/recent').then(r => setRecentDonors(r.data.data)).catch(() => {});
+    api.get('/events?status=upcoming').then(r => setEvents(r.data.data)).catch(() => { });
+    api.get('/announcements').then(r => setAnn(r.data.data)).catch(() => { });
+    api.get('/gallery').then(r => setGallery(r.data.data.slice(0, 6))).catch(() => { });
+    api.get('/donations/stats').then(r => setDonorStats(r.data.data)).catch(() => { });
+    api.get('/donations/recent').then(r => setRecentDonors(r.data.data)).catch(() => { });
 
     // Auto-refresh donors every 30 seconds to stay "live"
     const interval = setInterval(() => {
-      api.get('/donations/stats').then(r => setDonorStats(r.data.data)).catch(() => {});
-      api.get('/donations/recent').then(r => setRecentDonors(r.data.data)).catch(() => {});
+      api.get('/donations/stats').then(r => setDonorStats(r.data.data)).catch(() => { });
+      api.get('/donations/recent').then(r => setRecentDonors(r.data.data)).catch(() => { });
     }, 30000);
     return () => clearInterval(interval);
   }, []);
@@ -98,7 +186,7 @@ export default function Home() {
       {/* ── HERO ── */}
       <section className="relative min-h-screen flex items-center justify-center bg-hero-pattern overflow-hidden">
         {/* Background radial */}
-        <div className="absolute inset-0 bg-gradient-radial from-mkcc-crimson/20 via-transparent to-transparent" 
+        <div className="absolute inset-0 bg-gradient-radial from-mkcc-crimson/20 via-transparent to-transparent"
           style={{ background: 'radial-gradient(ellipse at center top, rgba(139,0,0,0.25) 0%, transparent 65%)' }} />
         {/* Grid lines */}
         <div className="absolute inset-0 opacity-5"
@@ -171,6 +259,9 @@ export default function Home() {
           ))}
         </div>
       </div>
+
+      {/* ── GANESH PUJA COUNTDOWN ── */}
+      <GaneshPujaCountdown />
 
       {/* ── ABOUT ── */}
       <Section id="about" className="bg-mkcc-dark">
@@ -328,8 +419,8 @@ export default function Home() {
                       <div className={`w-9 h-9 rounded-full flex items-center justify-center font-display text-lg flex-shrink-0
                         ${i === 0 ? 'bg-yellow-500/20 border border-yellow-500/50 text-yellow-400' :
                           i === 1 ? 'bg-gray-400/20 border border-gray-400/40 text-gray-300' :
-                          i === 2 ? 'bg-amber-700/20 border border-amber-700/40 text-amber-600' :
-                                    'bg-mkcc-red/10 border border-mkcc-red/20 text-mkcc-gold'}`}>
+                            i === 2 ? 'bg-amber-700/20 border border-amber-700/40 text-amber-600' :
+                              'bg-mkcc-red/10 border border-mkcc-red/20 text-mkcc-gold'}`}>
                         {i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : donor.name[0]?.toUpperCase()}
                       </div>
 

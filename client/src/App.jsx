@@ -1,7 +1,17 @@
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Outlet, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { AuthProvider } from './context/AuthContext';
+import { useEffect } from 'react';
+
+// ─── Scroll To Top on every page change ──────────────────────────────────────
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [pathname]);
+  return null;
+}
 
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
@@ -13,6 +23,7 @@ import Events  from './pages/Events/Events';
 import Gallery from './pages/Gallery/Gallery';
 import Contact from './pages/Contact/Contact';
 import Donate  from './pages/Donate/Donate';
+import GaneshPuja from './pages/GaneshPuja/GaneshPuja';
 
 import AdminLogin       from './pages/Admin/AdminLogin';
 import AdminLayout      from './pages/Admin/AdminLayout';
@@ -49,6 +60,7 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Toaster
           position="top-right"
           toastOptions={{
@@ -86,6 +98,7 @@ export default function App() {
             <Route path="/gallery" element={<PageWrap><Gallery /></PageWrap>} />
             <Route path="/contact" element={<PageWrap><Contact /></PageWrap>} />
             <Route path="/donate"  element={<PageWrap><Donate /></PageWrap>} />
+            <Route path="/ganesh-puja" element={<PageWrap><GaneshPuja /></PageWrap>} />
             <Route path="*"        element={<PageWrap><NotFound /></PageWrap>} />
           </Route>
 
