@@ -3,10 +3,14 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 dotenv.config();
 
 const app = express();
+
+app.use(helmet());
 
 // ─── Middleware ──────────────────────────────────────────────────────────────
 const allowedOrigins = [
@@ -18,7 +22,6 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, curl, Postman)
     if (!origin) return callback(null, true);
     if (allowedOrigins.includes(origin)) return callback(null, true);
     callback(new Error(`CORS blocked: ${origin}`));
@@ -28,11 +31,24 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
-// Handle preflight OPTIONS requests for all routes
+// Handle preflight OPTIONS requests
 app.options('*', cors());
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// ─── Rate Limiter Setup ───────────────────────────────────────────────────
+const publicLimit = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    message: 'Too many requests. Please try again later.',
+  },
+});
 
 // ─── Routes ──────────────────────────────────────────────────────────────────
 const eventsRouter        = require('./routes/events');
@@ -45,15 +61,16 @@ const uploadRouter        = require('./routes/upload');
 const donationsRouter     = require('./routes/donations');
 const visitorRouter       = require('./routes/visitor');
 
+app.use('/api/join',      publicLimit, joinRouter);
+app.use('/api/donations', publicLimit, donationsRouter);
+app.use('/api/visitor',   publicLimit, visitorRouter);
+
 app.use('/api/events',        eventsRouter);
 app.use('/api/members',       membersRouter);
 app.use('/api/gallery',       galleryRouter);
 app.use('/api/announcements', announcementsRouter);
-app.use('/api/join',          joinRouter);
 app.use('/api/auth',          authRouter);
 app.use('/api/upload',        uploadRouter);
-app.use('/api/donations',     donationsRouter);
-app.use('/api/visitor',       visitorRouter);
 
 // ─── Health Check ────────────────────────────────────────────────────────────
 app.get('/api/health', (req, res) => {

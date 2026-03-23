@@ -26,4 +26,14 @@ router.delete('/:id', authMiddleware, async (req, res) => {
   } catch (err) { res.status(500).json({ success: false, message: err.message }); }
 });
 
+router.put('/:id', authMiddleware, async (req, res) => {
+  try {
+    const photo = await Gallery.findByIdAndUpdate(
+      req.params.id, req.body, { new: true }
+    );
+    if (!photo) return res.status(404).json({ success: false, message: 'Photo not found' });
+    res.json({ success: true, data: photo });
+  } catch (err) { res.status(400).json({ success: false, message: err.message }); }
+});
+
 module.exports = router;

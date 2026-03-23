@@ -31,6 +31,7 @@ router.post('/', authMiddleware, async (req, res) => {
 router.put('/:id', authMiddleware, async (req, res) => {
   try {
     const ann = await Announcement.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!ann) return res.status(404).json({ success: false, message: 'Announcement no found' });
     res.json({ success: true, data: ann });
   } catch (err) { res.status(400).json({ success: false, message: err.message }); }
 });
