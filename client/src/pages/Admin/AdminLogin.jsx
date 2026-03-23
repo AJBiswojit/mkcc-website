@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
@@ -10,6 +10,16 @@ export default function AdminLogin() {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+
+  // Ensure there's always a history entry to go back to.
+  // If the user landed here directly (no prior history), push '/' first
+  // so the mobile back button has somewhere to go.
+  useEffect(() => {
+    if (window.history.length <= 1) {
+      navigate('/', { replace: true });
+      navigate('/admin/login');
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,9 +35,27 @@ export default function AdminLogin() {
     }
   };
 
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-mkcc-black flex items-center justify-center px-4"
       style={{ background: 'radial-gradient(ellipse at center, rgba(139,0,0,0.2) 0%, #0A0A0A 60%)' }}>
+
+      {/* Back Button */}
+      <button
+        onClick={handleBack}
+        className="fixed top-4 left-4 flex items-center gap-2 text-mkcc-muted hover:text-white font-heading text-sm uppercase tracking-wider transition-colors group"
+      >
+        <span className="text-lg group-hover:-translate-x-1 transition-transform inline-block">←</span>
+        Back
+      </button>
+
       <motion.div
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
