@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Outlet, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Outlet, useLocation, Link } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { motion } from 'framer-motion';
 import { AuthProvider } from './context/AuthContext';
@@ -115,7 +115,8 @@ function NotFound() {
       <div className="font-display text-[8rem] text-mkcc-red leading-none">404</div>
       <h2 className="font-heading font-bold text-white text-3xl mt-2">Page Not Found</h2>
       <p className="text-mkcc-muted font-body mt-3 mb-8">The page you're looking for doesn't exist.</p>
-      <a href="/" className="btn-primary">← Back to Home</a>
+      import { Link } from 'react-router-dom';
+      <Link to="/" className="btn-primary"> Back to Home</Link>
     </div>
   );
 }

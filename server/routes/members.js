@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Member = require('../models/Member');
-const { Gallery, Announcement, JoinRequest } = require('../models');
 const authMiddleware = require('../middleware/auth');
 
 // ─── Members ─────────────────────────────────────────────────────────────────
