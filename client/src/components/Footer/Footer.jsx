@@ -7,13 +7,21 @@ export default function Footer() {
   const [visitors, setVisitors] = useState(null);
 
   useEffect(() => {
-    // Count this visit
-    api.post('/visitor/hit')
-      .then(r => setVisitors(r.data.count))
-      .catch(() => {
-        // Fallback — just get current count
-        api.get('/visitor/count').then(r => setVisitors(r.data.count)).catch(() => {});
-      });
+    const lastVisit = localStorage.getItem('mkcc_visited');
+    const today = new Date().toDateString();
+
+    if (lastVisit !== today) {
+      // New visitor or new day — count it
+      api.post('/visitor/hit')
+        .then(r => setVisitors(r.data.count))
+        .catch(() => { });
+      localStorage.setItem('mkcc_visited', today);
+    } else {
+      // Already visited today — just get count
+      api.get('/visitor/count')
+        .then(r => setVisitors(r.data.count))
+        .catch(() => { });
+    }
   }, []);
   return (
     <footer className="bg-mkcc-black border-t border-mkcc-border mt-0">
@@ -44,10 +52,10 @@ export default function Footer() {
           </a>
         </div>
 
-          <div>
+        <div>
           <h4 className="font-heading font-bold text-white text-lg uppercase tracking-wider mb-4">Quick Links</h4>
           <ul className="space-y-2">
-            {['Home','About','Team','Events','Gallery','Contact'].map(label => (
+            {['Home', 'About', 'Team', 'Events', 'Gallery', 'Contact'].map(label => (
               <li key={label}>
                 <Link to={`/${label === 'Home' ? '' : label.toLowerCase()}`}
                   className="text-mkcc-muted hover:text-mkcc-gold font-body text-sm transition-colors">
@@ -90,15 +98,15 @@ export default function Footer() {
             <li className="flex items-center gap-2"><span>✉️</span><span>web.mkccpatuli@gmail.com</span></li>
           </ul>
           <div className="mt-4 flex gap-3">
-            <a href="#" 
-            target="_blank"
-            className="w-9 h-9 bg-mkcc-card border border-mkcc-border rounded flex items-center justify-center text-mkcc-muted hover:text-mkcc-red hover:border-mkcc-red transition-colors">FB</a>
-            <a href="https://youtube.com/@mkccpatulivlog?si=6uIIFE6H9FnXjBC1" 
-            target="_blank"
-            className="w-9 h-9 bg-mkcc-card border border-mkcc-border rounded flex items-center justify-center text-mkcc-muted hover:text-mkcc-red hover:border-mkcc-red transition-colors">YT</a>
-            <a href="https://www.instagram.com/mkcc.patuli?igsh=MXhhNjU0eWRrOWNhYw==" 
-            target="_blank"
-            className="w-9 h-9 bg-mkcc-card border border-mkcc-border rounded flex items-center justify-center text-mkcc-muted hover:text-mkcc-gold hover:border-mkcc-gold transition-colors">IG</a>
+            <a href="#"
+              target="_blank"
+              className="w-9 h-9 bg-mkcc-card border border-mkcc-border rounded flex items-center justify-center text-mkcc-muted hover:text-mkcc-red hover:border-mkcc-red transition-colors">FB</a>
+            <a href="https://youtube.com/@mkccpatulivlog?si=6uIIFE6H9FnXjBC1"
+              target="_blank"
+              className="w-9 h-9 bg-mkcc-card border border-mkcc-border rounded flex items-center justify-center text-mkcc-muted hover:text-mkcc-red hover:border-mkcc-red transition-colors">YT</a>
+            <a href="https://www.instagram.com/mkcc.patuli?igsh=MXhhNjU0eWRrOWNhYw=="
+              target="_blank"
+              className="w-9 h-9 bg-mkcc-card border border-mkcc-border rounded flex items-center justify-center text-mkcc-muted hover:text-mkcc-gold hover:border-mkcc-gold transition-colors">IG</a>
           </div>
         </div>
       </div>
