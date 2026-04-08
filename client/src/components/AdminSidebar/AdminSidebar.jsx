@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import MKCCLogo from '../Logo/MKCCLogo';
 
@@ -15,6 +15,12 @@ const NAV = [
 export default function AdminSidebar({ isOpen = false, onClose = () => {} }) {
   const { pathname } = useLocation();
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();                              // clears token + user state
+    navigate('/', { replace: true });      // replace entire history stack — back button won't return to admin
+  };
 
   return (
     <>
@@ -46,7 +52,6 @@ export default function AdminSidebar({ isOpen = false, onClose = () => {} }) {
               <div className="font-heading text-[10px] text-mkcc-red uppercase tracking-widest">Admin Panel</div>
             </div>
           </div>
-
           {/* Close button — mobile only */}
           <button
             onClick={onClose}
@@ -102,7 +107,7 @@ export default function AdminSidebar({ isOpen = false, onClose = () => {} }) {
             <span>🌐</span> View Site
           </Link>
           <button
-            onClick={logout}
+            onClick={handleLogout}
             className="w-full flex items-center gap-2 text-mkcc-red hover:bg-mkcc-red/10 font-heading text-sm px-3 py-2 rounded transition-colors"
           >
             <span>🚪</span> Logout

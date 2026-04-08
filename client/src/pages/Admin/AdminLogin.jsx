@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
@@ -10,16 +10,6 @@ export default function AdminLogin() {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
-
-  // Ensure there's always a history entry to go back to.
-  // If the user landed here directly (no prior history), push '/' first
-  // so the mobile back button has somewhere to go.
-  useEffect(() => {
-    if (window.history.length <= 1) {
-      navigate('/', { replace: true });
-      navigate('/admin/login');
-    }
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,21 +25,14 @@ export default function AdminLogin() {
     }
   };
 
-  const handleBack = () => {
-    if (window.history.length > 1) {
-      navigate(-1);
-    } else {
-      navigate('/');
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-mkcc-black flex items-center justify-center px-4"
-      style={{ background: 'radial-gradient(ellipse at center, rgba(139,0,0,0.2) 0%, #0A0A0A 60%)' }}>
-
-      {/* Back Button */}
+    <div
+      className="min-h-screen bg-mkcc-black flex items-center justify-center px-4"
+      style={{ background: 'radial-gradient(ellipse at center, rgba(139,0,0,0.2) 0%, #0A0A0A 60%)' }}
+    >
+      {/* Back Button — always goes home, replaces history so back button stays clean */}
       <button
-        onClick={handleBack}
+        onClick={() => navigate('/', { replace: true })}
         className="fixed top-4 left-4 flex items-center gap-2 text-mkcc-muted hover:text-white font-heading text-sm uppercase tracking-wider transition-colors group"
       >
         <span className="text-lg group-hover:-translate-x-1 transition-transform inline-block">←</span>
@@ -73,17 +56,21 @@ export default function AdminLogin() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block font-heading text-gray-300 text-xs mb-1.5 uppercase tracking-wider">Username</label>
-            <input type="text" required value={creds.username}
+            <input
+              type="text" required value={creds.username}
               onChange={e => setCreds(c => ({ ...c, username: e.target.value }))}
               placeholder="admin"
-              className="w-full bg-mkcc-dark border border-mkcc-border rounded-lg px-4 py-3 text-white font-body focus:border-mkcc-red focus:outline-none focus:ring-1 focus:ring-mkcc-red transition-colors" />
+              className="w-full bg-mkcc-dark border border-mkcc-border rounded-lg px-4 py-3 text-white font-body focus:border-mkcc-red focus:outline-none focus:ring-1 focus:ring-mkcc-red transition-colors"
+            />
           </div>
           <div>
             <label className="block font-heading text-gray-300 text-xs mb-1.5 uppercase tracking-wider">Password</label>
-            <input type="password" required value={creds.password}
+            <input
+              type="password" required value={creds.password}
               onChange={e => setCreds(c => ({ ...c, password: e.target.value }))}
               placeholder="••••••••"
-              className="w-full bg-mkcc-dark border border-mkcc-border rounded-lg px-4 py-3 text-white font-body focus:border-mkcc-red focus:outline-none focus:ring-1 focus:ring-mkcc-red transition-colors" />
+              className="w-full bg-mkcc-dark border border-mkcc-border rounded-lg px-4 py-3 text-white font-body focus:border-mkcc-red focus:outline-none focus:ring-1 focus:ring-mkcc-red transition-colors"
+            />
           </div>
           <button type="submit" disabled={loading} className="btn-primary w-full text-base py-3">
             {loading ? 'Logging in...' : '🔐 Login to Dashboard'}
